@@ -22,7 +22,15 @@ function App() {
   return (
     <>
       <div>
-        <h1>React Job Search</h1>
+        {jobObjects.map((job) => (
+          <div key={job.id}>
+            <h2>{job.company_name}</h2>
+            <h3>{job.role}</h3>
+            <h4>
+              {job.employment_type}/{job.date_posted}
+            </h4>
+          </div>
+        ))}
       </div>
     </>
   );
