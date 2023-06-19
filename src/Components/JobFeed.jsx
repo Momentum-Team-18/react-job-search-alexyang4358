@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import JobTabs from "./JobTabs";
 
-const JobFeed = () => {
+const JobFeed = ({ selectedCategory }) => {
   const [activeTab, setActiveTab] = useState("");
   const [jobs, setJobs] = useState([]);
 
@@ -17,11 +17,24 @@ const JobFeed = () => {
       .then((response) => setJobs(response.data.results));
   }, []);
 
-  console.log(jobs);
+  const categoryURL = `https://findwork.dev/api/jobs/?remote=true&search=${selectedCategory}&sort_by=relevance`;
+
+  useEffect(() => {
+    axios
+      .get(categoryURL, {
+        headers: {
+          Authorization: `Token ${import.meta.env.VITE_FINDWORK_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => setJobs(response.data.results));
+  }, [selectedCategory]);
+
+  console.log(categoryURL);
 
   return (
     <>
-      <JobTabs />
+      <JobTabs selectedCategory={selectedCategory} />
       <div className="flex flex-row pt-8 pl-20">
         <div className="h-1/2">
           <div className="h-1/2">
@@ -50,9 +63,6 @@ const JobFeed = () => {
 
 export default JobFeed;
 
-// fetch json.
-// hard code three categories: react, javascript, python.
-// display the categories as tabs
 // when a user clicks on a tab, display the jobs that have that keyword.
 
 // when we click on a tab, we are redirected to a new enpoint with the keyword (react, javascript python)
