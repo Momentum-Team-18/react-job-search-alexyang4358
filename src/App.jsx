@@ -2,27 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import JobFeed from "./Components/JobFeed";
+import JobTabs from "./Components/JobTabs";
 
 function App() {
-  // const [jobs, setJobs] = useState([]);
-  // const APIKEY = "aa115160456297308f78363017280e109ba5dfaa";
-
-  // useEffect(() => {
-  //   axios
-  //     .get("https://proxy-findwork-api.glitch.me/api/jobs/", {
-  //       headers: {
-  //         Authorization: `Token ${APIKEY}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //     .then((response) => setJobs(response.data.results));
-  // }, []);
-
-  // console.log(jobs);
-
+  const [selectedCategory, setSelectedCategory] = useState("");
   return (
     <>
-      <JobFeed />
+      <JobFeed selectedCategory={selectedCategory} />
+      <JobTabs setSelectedCategory={setSelectedCategory} />
     </>
   );
 }

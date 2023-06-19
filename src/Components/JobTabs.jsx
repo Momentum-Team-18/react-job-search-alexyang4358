@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
-function JobTabs() {
+function JobTabs({ setSelectedCategory }) {
+  // lifting the state up, passing category from jobsTab to parent component jobFeed.
   // handle div click. when clicked, user is shown a feed of jobs with that keyword.
   // do i need a new endpoint? .
   // how do i get the keyword to be included in the endpoint?
   // how will the input field/search function look. what should it do.
 
-  const [seletectedCategory, setSelectedCategory] = useState("");
-  const [jobsByCategory, setJobsByCategory] = useState([]);
-
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
+
+  // this components to grab user selected category.
+  // setSelected
 
   return (
     <>
