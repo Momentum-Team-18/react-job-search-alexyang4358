@@ -12,7 +12,7 @@ function JobTabs({ setSelectedCategory }) {
   };
 
   // this components to grab user selected category.
-  // setSelected
+  // capturing what we click and passing props up into our parent component.
 
   return (
     <>

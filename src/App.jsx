@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import "./App.css";
 import JobFeed from "./Components/JobFeed";
 import JobTabs from "./Components/JobTabs";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  console.log(selectedCategory);
   return (
     <>
-      <JobFeed selectedCategory={selectedCategory} />
       <JobTabs setSelectedCategory={setSelectedCategory} />
+      <JobFeed selectedCategory={selectedCategory} />
     </>
   );
 }

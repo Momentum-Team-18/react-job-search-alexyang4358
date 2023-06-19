@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import JobTabs from "./JobTabs";
+
+// job feed & sorted job feed
 
 const JobFeed = ({ selectedCategory }) => {
   const [activeTab, setActiveTab] = useState("");
@@ -17,7 +18,7 @@ const JobFeed = ({ selectedCategory }) => {
       .then((response) => setJobs(response.data.results));
   }, []);
 
-  const categoryURL = `https://findwork.dev/api/jobs/?remote=true&search=${selectedCategory}&sort_by=relevance`;
+  const categoryURL = `https://proxy-findwork-api.glitch.me/api/jobs/?remote=true&search=${selectedCategory}&sort_by=relevance`;
 
   useEffect(() => {
     axios
@@ -31,10 +32,10 @@ const JobFeed = ({ selectedCategory }) => {
   }, [selectedCategory]);
 
   console.log(categoryURL);
+  console.log(jobs);
 
   return (
     <>
-      <JobTabs selectedCategory={selectedCategory} />
       <div className="flex flex-row pt-8 pl-20">
         <div className="h-1/2">
           <div className="h-1/2">
