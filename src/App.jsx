@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import JobFeed from "./Components/JobFeed";
 import JobTabs from "./Components/JobTabs";
+import JobMoreInfo from "./Components/JobMoreInfo";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  console.log(selectedCategory);
   return (
     <>
       <JobTabs setSelectedCategory={setSelectedCategory} />
@@ -22,3 +22,4 @@ export default App;
 // on a new endpoint? https://findwork.dev/api/jobs/?remote=true&search=react&sort_by=relevance.
 
 // click on job title, user is shown more details on theh selected job.
+//import JobMoreInfo from "./Components/JobMoreInfo";

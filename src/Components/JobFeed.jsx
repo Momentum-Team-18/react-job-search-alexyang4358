@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import JobMoreInfo from "./JobMoreInfo";
 
 // job feed & sorted job feed
 
 const JobFeed = ({ selectedCategory }) => {
-  const [activeTab, setActiveTab] = useState("");
   const [jobs, setJobs] = useState([]);
+  const [currentJob, setCurrentJob] = useState(0);
+  const [showMoreInfo, setShowMoreInfo] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState(null);
 
   useEffect(() => {
     axios
@@ -31,29 +34,34 @@ const JobFeed = ({ selectedCategory }) => {
       .then((response) => setJobs(response.data.results));
   }, [selectedCategory]);
 
-  console.log(categoryURL);
-  console.log(jobs);
+  const handleToggleMoreInfo = (jobId) => {
+    setSelectedJobId(jobId === selectedJobId ? null : jobId);
+  };
 
   return (
     <>
-      <div className="flex flex-row pt-8 pl-20">
-        <div className="h-1/2">
-          <div className="h-1/2">
-            <ul className="flex justify-center pb-3">
-              <p className="pl-1">Job Title</p>
-              <p className="pl-4">Company</p>
-              <p className="pl-4">Date Posted</p>
-            </ul>
-          </div>
+      <div className="flex flex-row pt-8 pl-20 ml-20">
+        <div className="grid grid-cols-2 gap-5">
           {jobs.map((job) => (
             <div key={job.id} className="mb-5">
-              <h2 className="text-lg font-bold pb-1 border-b">{job.role}</h2>
+              <div className="flex items-center">
+                <h2 className="text-lg font-bold pb-1 border-b-2 border-white w-1/2">
+                  {job.role}
+                </h2>
+              </div>
               <h3 className="text-sm font-semibold text-gray-600">
                 {job.company_name}
               </h3>
               <h3 className="text-sm font-semibold text-gray-600">
                 {job.date_posted}
               </h3>
+              <button
+                className="ml-0 mt-2 py-1 px-2 text-sm bg-black-300 rounded"
+                onClick={() => handleToggleMoreInfo(job.id)}
+              >
+                {selectedJobId === job.id ? "Hide Details" : "Details"}
+              </button>
+              {selectedJobId === job.id && <JobMoreInfo job={job} />}
             </div>
           ))}
         </div>
@@ -63,8 +71,3 @@ const JobFeed = ({ selectedCategory }) => {
 };
 
 export default JobFeed;
-
-// when a user clicks on a tab, display the jobs that have that keyword.
-
-// when we click on a tab, we are redirected to a new enpoint with the keyword (react, javascript python)
-// we got the
